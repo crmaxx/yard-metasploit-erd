@@ -3,6 +3,11 @@ source 'https://rubygems.org'
 # Specify your gem's dependencies in yard-metasploit-erd.gemspec
 gemspec
 
+# This isn't in gemspec because metasploit-framework has its own patched version of 'metasploit-erd' that it needs
+# to use instead of this gem.
+# Generates namespace Module and Class<ActiveRecord::Base> specific ERDs for use in templates
+gem 'metasploit-erd', github: 'crmaxx/metasploit-erd', branch: 'staging/rails-4.2'
+
 group :development, :test do
   # markdown formatting for yard
   gem 'kramdown', platforms: :jruby
@@ -14,12 +19,8 @@ group :development, :test do
 end
 
 group :test do
-  rails_version_constraint = [
-      '~> 4.0',
-      '< 4.1.0'
-  ]
   # blank?
-  gem 'activesupport', *rails_version_constraint
+  gem 'activesupport', '>= 4.2.1'
   # Upload coverage reports to coveralls.io
   gem 'coveralls', require: false
   # code coverage of tests
